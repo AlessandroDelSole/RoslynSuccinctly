@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DateTimeAnalyzer_VB", "DateTimeAnalyzer_VB\DateTimeAnalyzer_VB\DateTimeAnalyzer_VB.vbproj", "{528D8DB2-22D1-4EFD-B9D8-E6F5D3D5CFD3}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DateTimeAnalyzer_VB.Test", "DateTimeAnalyzer_VB\DateTimeAnalyzer_VB.Test\DateTimeAnalyzer_VB.Test.vbproj", "{5399E7A8-F8F1-4F2E-A5D2-9C96F3DD2A2D}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DateTimeAnalyzer_VB.Vsix", "DateTimeAnalyzer_VB\DateTimeAnalyzer_VB.Vsix\DateTimeAnalyzer_VB.Vsix.vbproj", "{C22D5814-6E6D-4CEF-B4F7-6E18A650E07C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeAnalyzer_CS", "DateTimeAnalyzer_CS\DateTimeAnalyzer_CS\DateTimeAnalyzer_CS.csproj", "{306693F7-873A-44FD-91A7-5D2FD8A8523F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeAnalyzer_CS.Test", "DateTimeAnalyzer_CS\DateTimeAnalyzer_CS.Test\DateTimeAnalyzer_CS.Test.csproj", "{7C284264-8A5E-4D49-BA0D-EA0042C57264}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeAnalyzer_CS.Vsix", "DateTimeAnalyzer_CS\DateTimeAnalyzer_CS.Vsix\DateTimeAnalyzer_CS.Vsix.csproj", "{4ED61213-DD1C-4DF3-A5B5-8F3D926AE30C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{528D8DB2-22D1-4EFD-B9D8-E6F5D3D5CFD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{528D8DB2-22D1-4EFD-B9D8-E6F5D3D5CFD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{528D8DB2-22D1-4EFD-B9D8-E6F5D3D5CFD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{528D8DB2-22D1-4EFD-B9D8-E6F5D3D5CFD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5399E7A8-F8F1-4F2E-A5D2-9C96F3DD2A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5399E7A8-F8F1-4F2E-A5D2-9C96F3DD2A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5399E7A8-F8F1-4F2E-A5D2-9C96F3DD2A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5399E7A8-F8F1-4F2E-A5D2-9C96F3DD2A2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22D5814-6E6D-4CEF-B4F7-6E18A650E07C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22D5814-6E6D-4CEF-B4F7-6E18A650E07C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22D5814-6E6D-4CEF-B4F7-6E18A650E07C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22D5814-6E6D-4CEF-B4F7-6E18A650E07C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{306693F7-873A-44FD-91A7-5D2FD8A8523F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{306693F7-873A-44FD-91A7-5D2FD8A8523F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{306693F7-873A-44FD-91A7-5D2FD8A8523F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{306693F7-873A-44FD-91A7-5D2FD8A8523F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C284264-8A5E-4D49-BA0D-EA0042C57264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C284264-8A5E-4D49-BA0D-EA0042C57264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C284264-8A5E-4D49-BA0D-EA0042C57264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C284264-8A5E-4D49-BA0D-EA0042C57264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ED61213-DD1C-4DF3-A5B5-8F3D926AE30C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ED61213-DD1C-4DF3-A5B5-8F3D926AE30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ED61213-DD1C-4DF3-A5B5-8F3D926AE30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ED61213-DD1C-4DF3-A5B5-8F3D926AE30C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
