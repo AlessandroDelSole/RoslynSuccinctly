@@ -36,16 +36,15 @@ namespace DateTimeAnalyzer_CS
         {
             if (context.SemanticModel.Compilation.GetTypeByMetadataName("Microsoft.OData.Core.ODataAction") == null)
             {
-                return;
+                if (context.SemanticModel.Compilation.GetTypeByMetadataName("Windows.Storage.StorageFile") == null)
+                {
+                    return;
+                }
             }
 
             var root = context.Node;
 
-            if ((root) is PredefinedTypeSyntax)
-            {
-                root = (PredefinedTypeSyntax)context.Node;
-            }
-            else if ((root) is IdentifierNameSyntax)
+            if ((root) is IdentifierNameSyntax)
             {
                 root = (IdentifierNameSyntax)context.Node;
             }

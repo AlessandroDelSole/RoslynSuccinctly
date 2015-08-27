@@ -16,7 +16,6 @@ namespace PublicFieldRefactoring
     [ExportCodeRefactoringProvider(LanguageNames.CSharp, Name = nameof(PublicFieldRefactoringCodeRefactoringProvider)), Shared]
     internal class PublicFieldRefactoringCodeRefactoringProvider : CodeRefactoringProvider
     {
-
         public sealed override async Task ComputeRefactoringsAsync(CodeRefactoringContext context)
         {
             // TODO: Replace the following code with your own analysis, generating a CodeAction for each refactoring to offer
@@ -29,17 +28,15 @@ namespace PublicFieldRefactoring
             var fieldDecl = node as FieldDeclarationSyntax;
             if (fieldDecl == null || fieldDecl.Modifiers.ToFullString().Contains("public") == false) { return; }
 
-            bool mustRegisterAction;
+            bool mustRegisterAction = false;
 
-            foreach (var declarator in fieldDecl.Declarators)
+            if (fieldDecl.Declaration.Variables.Any(i => char.IsLower(i.Identifier.ValueText.ToCharArray().First())))
             {
-                if (declarator.Names.Any(d=> char.IsUpper(d.Identifier.Value.ToString[0]))) {
-                    mustRegisterAction = true;
-                }
-                else
-                {
-                    mustRegisterAction = false;
-                }
+                mustRegisterAction = true;
+            }
+            else
+            {
+                mustRegisterAction = false;
             }
 
             
@@ -60,13 +57,25 @@ namespace PublicFieldRefactoring
             var semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
             var root = await document.GetSyntaxRootAsync();
 
-            var oldDeclarators = fieldDeclaration.Modifiers;
+            var oldDeclarators = fieldDeclaration.Declaration.Variables;
 
-            Dim listOfNewModifiedIdentifiers As _
-            New SeparatedSyntaxList(Of ModifiedIdentifierSyntax)
-        Dim listOfNewModifiedDeclarators As _
-            New SeparatedSyntaxList(Of VariableDeclaratorSyntax)
-        }
+            var listOfNewModifiedDeclarators = new SeparatedSyntaxList<VariableDeclaratorSyntax>();
+
+            foreach (var declarator in oldDeclarators) {
+                var tempString = ConvertName(declarator.Identifier.ToFullString());
+
+                listOfNewModifiedDeclarators = listOfNewModifiedDeclarators.Add(declarator.WithIdentifier(SyntaxFactory.ParseToken(tempString)));
+            }
+
+            var newDeclaration = fieldDeclaration.Declaration.WithVariables(listOfNewModifiedDeclarators);
+
+            var newField = fieldDeclaration.WithDeclaration(newDeclaration);
+
+            SyntaxNode newRoot = root.ReplaceNode(fieldDeclaration, newField);
+            var newDocument = document.WithSyntaxRoot(newRoot);
+
+            return newDocument;
+       }
 
         private string ConvertName(string oldName)
         {
