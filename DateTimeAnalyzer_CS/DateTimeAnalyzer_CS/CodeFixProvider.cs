@@ -41,43 +41,32 @@ namespace DateTimeAnalyzer_CS
 
             var node = root.FindNode(context.Span);
 
-            if (node is PredefinedTypeSyntax) {
-                context.RegisterCodeFix(
-                CodeAction.Create("Replace with DateTimeOffset",
-                                  c => ReplaceDateAsync(context.Document, node, c), title), diagnostic);
+            if (node is IdentifierNameSyntax == false)
+            {
+                return;
             }
-            else {
-                context.RegisterCodeFix(
-                CodeAction.Create("Replace with DateTimeOffset",
-                                  c=> ReplaceDateTimeAsync(context.Document, node, c), title), diagnostic);
-            }
+
+            context.RegisterCodeFix(
+            CodeAction.Create(title:title,
+                              createChangedDocument: c=> ReplaceDateTimeAsync(context.Document, node, c), 
+                              equivalenceKey:title), diagnostic);
         }
 
-
-        private async Task<Document> ReplaceDateAsync(Document document, SyntaxNode node,
-                                 CancellationToken cancellationToken)
-        {
-            var root = await document.GetSyntaxRootAsync();
-            var generator = SyntaxGenerator.GetGenerator(document);
-
-            var newIdentifierSyntax = generator.IdentifierName("DateTimeOffset").WithTrailingTrivia(node.GetTrailingTrivia());
-
-            var newRoot = root.ReplaceNode(node, newIdentifierSyntax);
-            var newDocument = document.WithSyntaxRoot(newRoot);
-            return newDocument;
-
-        }
 
         private async Task<Document> ReplaceDateTimeAsync(Document document, SyntaxNode node,
                          CancellationToken cancellationToken)
         {
-            var semanticModel = await document.GetSemanticModelAsync(cancellationToken);
+            var semanticModel = await document.
+                                GetSemanticModelAsync(cancellationToken);
             var root = await document.GetSyntaxRootAsync();
 
-            var convertedNode = (PredefinedTypeSyntax)node;
+            var convertedNode = (IdentifierNameSyntax)node;
 
-            var node2 = convertedNode.WithKeyword(SyntaxFactory.ParseToken("DateTimeOffset")).WithTrailingTrivia(node.GetTrailingTrivia());
-            var newRoot = root.ReplaceNode(node, node2);
+            var newNode = convertedNode.WithIdentifier(SyntaxFactory.
+                          ParseToken("DateTimeOffset")).
+                          WithTrailingTrivia(node.GetTrailingTrivia());
+
+            var newRoot = root.ReplaceNode(node, newNode);
 
             var newDocument = document.WithSyntaxRoot(newRoot);
             return newDocument;

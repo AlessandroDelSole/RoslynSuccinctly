@@ -13,12 +13,19 @@ namespace DateTimeAnalyzer_CS
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class DateTimeAnalyzer_CSAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = "DTA002";
+        public const string DiagnosticId = "DTA001";
 
-        // You can change these strings in the Resources.resx file. If you do not want your analyzer to be localize-able, you can use regular strings for Title and MessageFormat.
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.AnalyzerTitle), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.AnalyzerMessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.AnalyzerDescription), Resources.ResourceManager, typeof(Resources));
+        // You can change these strings in the Resources.resx file. If you do not want your analyzer 
+        // to be localize-able, you can use regular strings for Title and MessageFormat.
+        private static readonly LocalizableString Title = 
+            new LocalizableResourceString(nameof(Resources.AnalyzerTitle), 
+                Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = 
+            new LocalizableResourceString(nameof(Resources.AnalyzerMessageFormat), 
+                Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = 
+            new LocalizableResourceString(nameof(Resources.AnalyzerDescription), 
+                Resources.ResourceManager, typeof(Resources));
         private const string Category = "Naming";
 
         private static DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
@@ -28,7 +35,6 @@ namespace DateTimeAnalyzer_CS
         public override void Initialize(AnalysisContext context)
         {
             // TODO: Consider registering other actions that act on syntax instead of or in addition to symbols
-            context.RegisterSyntaxNodeAction(AnalyzeDate, SyntaxKind.PredefinedType);
             context.RegisterSyntaxNodeAction(AnalyzeDate, SyntaxKind.IdentifierName);
         }
 
