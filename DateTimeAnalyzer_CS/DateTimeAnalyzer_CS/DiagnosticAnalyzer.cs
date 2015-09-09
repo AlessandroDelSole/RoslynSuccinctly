@@ -41,8 +41,8 @@ namespace DateTimeAnalyzer_CS
 
         public override void Initialize(AnalysisContext context)
         {
-            // TODO: Consider registering other actions that act on syntax instead of or in addition to symbols
-            context.RegisterSyntaxNodeAction(AnalyzeDateTime, SyntaxKind.IdentifierName);
+            context.RegisterSyntaxNodeAction(AnalyzeDateTime, 
+                    SyntaxKind.IdentifierName);
         }
 
         private void AnalyzeDateTime(SyntaxNodeAnalysisContext context)
@@ -55,32 +55,44 @@ namespace DateTimeAnalyzer_CS
                 }
             }
 
+            // Get the syntax node to analyze
             var root = context.Node;
 
+            // If it's not an IdentifierName syntax node,
+            // return
             if (!(root is IdentifierNameSyntax))
             {
                 return;
             }
 
+            // Convert to IdentifierNameSyntax
             root = (IdentifierNameSyntax)context.Node;
 
+            // Get the symbol info for
+            // the DateTime type declaration
             var dateSymbol = context.SemanticModel.
                 GetSymbolInfo(root).Symbol as INamedTypeSymbol;
 
+            // If no symbol info, return
             if (dateSymbol == null)
             {
                 return;
             }
 
+            // If the name of the symbol is not
+            // DateTime, return
             if (!(dateSymbol.MetadataName == "DateTime"))
             {
                 return;
             }
 
+            // Create a diagnostic at the node location
+            // with the specified message and rule info
             var diagn = Diagnostic.Create(Rule, 
                 root.GetLocation(), 
                 "Consider replacing with DateTimeOffset");
 
+            // Report the diagnostic
             context.ReportDiagnostic(diagn);
         }
     }

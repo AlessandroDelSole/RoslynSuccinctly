@@ -37,41 +37,58 @@ Public Class DateTimeAnalyzer_VBAnalyzer
     End Property
 
     Public Overrides Sub Initialize(context As AnalysisContext)
-        ' TODO: Consider registering other actions that act on syntax instead of or in addition to symbols
-        context.RegisterSyntaxNodeAction(AddressOf AnalyzeDate, SyntaxKind.PredefinedType)
-        context.RegisterSyntaxNodeAction(AddressOf AnalyzeDate, SyntaxKind.IdentifierName)
+        context.RegisterSyntaxNodeAction(AddressOf AnalyzeDateTime,
+                                         SyntaxKind.PredefinedType)
+        context.RegisterSyntaxNodeAction(AddressOf AnalyzeDateTime,
+                                         SyntaxKind.IdentifierName)
     End Sub
 
-    Private Sub AnalyzeDate(context As SyntaxNodeAnalysisContext)
+    Private Sub AnalyzeDateTime(context As SyntaxNodeAnalysisContext)
         If context.SemanticModel.Compilation.GetTypeByMetadataName("Windows.Storage.StorageFile") Is Nothing Then
             If context.SemanticModel.Compilation.GetTypeByMetadataName("Microsoft.OData.Core.ODataAction") Is Nothing Then
                 Return
             End If
         End If
 
+        'Get the syntax node to analyze
         Dim root = context.Node
 
+        'If it's not an IdentifierName syntax node,
+        'return
         If TypeOf (root) Is PredefinedTypeSyntax Then
             root = CType(context.Node, PredefinedTypeSyntax)
         ElseIf TypeOf (root) Is IdentifierNameSyntax
+            'Conver to IdentifierNameSyntax
             root = CType(context.Node, IdentifierNameSyntax)
         Else
             Return
         End If
 
-        Dim dateSymbol = TryCast(context.SemanticModel.GetSymbolInfo(root).Symbol, INamedTypeSymbol)
+        'Get the symbol info for
+        'the DateTime type declaration
+        Dim dateSymbol =
+            TryCast(context.SemanticModel.
+                    GetSymbolInfo(root).Symbol,
+                    INamedTypeSymbol)
 
+        'If no symbol info, return
         If dateSymbol Is Nothing Then
             Return
         End If
 
+        'If the name  of the symbol is not 
+        'DateTime, return
         If Not dateSymbol.MetadataName = "DateTime" Then
             Return
         End If
 
-        Dim diagn = Diagnostic.Create(Rule, root.GetLocation,
-                              "Consider replacing with DateTimeOffset")
-        context.ReportDiagnostic(diagn)
+        'Create a diagnostic at the node location
+        'with the specified message And rule info
+        Dim diagn =
+            Diagnostic.Create(Rule, root.GetLocation,
+                       "Consider replacing with DateTimeOffset")
 
+        'Report the diagnostic
+        context.ReportDiagnostic(diagn)
     End Sub
 End Class
