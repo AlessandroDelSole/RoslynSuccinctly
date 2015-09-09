@@ -28,17 +28,24 @@ namespace DateTimeAnalyzer_CS
                 Resources.ResourceManager, typeof(Resources));
         private const string Category = "Naming";
 
-        private static DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
+        private static DiagnosticDescriptor Rule = 
+                new DiagnosticDescriptor(DiagnosticId, 
+                    Title, MessageFormat, Category, 
+                    DiagnosticSeverity.Warning, 
+                    isEnabledByDefault: true, 
+                    description: Description,
+                    helpLinkUri: "https://github.com/AlessandroDelSole/RoslynSuccinctly/wiki/DTA001");
 
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get { return ImmutableArray.Create(Rule); } }
+        public override ImmutableArray<DiagnosticDescriptor> 
+            SupportedDiagnostics { get { return ImmutableArray.Create(Rule); } }
 
         public override void Initialize(AnalysisContext context)
         {
             // TODO: Consider registering other actions that act on syntax instead of or in addition to symbols
-            context.RegisterSyntaxNodeAction(AnalyzeDate, SyntaxKind.IdentifierName);
+            context.RegisterSyntaxNodeAction(AnalyzeDateTime, SyntaxKind.IdentifierName);
         }
 
-        private void AnalyzeDate(SyntaxNodeAnalysisContext context)
+        private void AnalyzeDateTime(SyntaxNodeAnalysisContext context)
         {
             if (context.SemanticModel.Compilation.GetTypeByMetadataName("Microsoft.OData.Core.ODataAction") == null)
             {
@@ -50,16 +57,15 @@ namespace DateTimeAnalyzer_CS
 
             var root = context.Node;
 
-            if ((root) is IdentifierNameSyntax)
-            {
-                root = (IdentifierNameSyntax)context.Node;
-            }
-            else
+            if (!(root is IdentifierNameSyntax))
             {
                 return;
             }
 
-            var dateSymbol = context.SemanticModel.GetSymbolInfo(root).Symbol as INamedTypeSymbol;
+            root = (IdentifierNameSyntax)context.Node;
+
+            var dateSymbol = context.SemanticModel.
+                GetSymbolInfo(root).Symbol as INamedTypeSymbol;
 
             if (dateSymbol == null)
             {
@@ -71,9 +77,11 @@ namespace DateTimeAnalyzer_CS
                 return;
             }
 
-            var diagn = Diagnostic.Create(Rule, root.GetLocation(), "Consider replacing with DateTimeOffset");
-            context.ReportDiagnostic(diagn);
+            var diagn = Diagnostic.Create(Rule, 
+                root.GetLocation(), 
+                "Consider replacing with DateTimeOffset");
 
+            context.ReportDiagnostic(diagn);
         }
     }
 }

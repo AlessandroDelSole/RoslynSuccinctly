@@ -64,6 +64,7 @@ namespace DateTimeAnalyzer_CS
 
             var newNode = convertedNode.WithIdentifier(SyntaxFactory.
                           ParseToken("DateTimeOffset")).
+                          WithLeadingTrivia(node.GetLeadingTrivia()).
                           WithTrailingTrivia(node.GetTrailingTrivia());
 
             var newRoot = root.ReplaceNode(node, newNode);

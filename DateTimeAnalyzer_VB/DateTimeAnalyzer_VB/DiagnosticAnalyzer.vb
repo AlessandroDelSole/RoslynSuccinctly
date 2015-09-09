@@ -23,11 +23,14 @@ Public Class DateTimeAnalyzer_VBAnalyzer
     Private Const Category = "Naming"
 
     Private Shared Rule As New DiagnosticDescriptor(DiagnosticId,
-                               Title, MessageFormat, Category,
-                               DiagnosticSeverity.Warning, isEnabledByDefault:=True,
-                               description:=Description)
+            Title, MessageFormat, Category,
+            DiagnosticSeverity.Warning,
+            isEnabledByDefault:=True,
+            description:=Description,
+            helpLinkUri:="https://github.com/AlessandroDelSole/RoslynSuccinctly/wiki/DTA001")
 
-    Public Overrides ReadOnly Property SupportedDiagnostics As ImmutableArray(Of DiagnosticDescriptor)
+    Public Overrides ReadOnly Property SupportedDiagnostics As _
+        ImmutableArray(Of DiagnosticDescriptor)
         Get
             Return ImmutableArray.Create(Rule)
         End Get

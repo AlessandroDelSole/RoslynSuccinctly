@@ -3,7 +3,7 @@
   <Metadata>
     <Identity Id="DateTimeAnalyzer_CS.Vsix..256bb070-f946-4b9f-87c9-56fc16619825" Version="1.0" Language="en-US" Publisher="proga"/>
     <DisplayName>DateTimeAnalyzer_CS.Vsix</DisplayName>
-    <Description xml:space="preserve">Companion C# sample for the "Roslyn Succinctly" book by Alessandro Del Sole, published by Syncfusion Inc. This analyzer checks for usage of Date keywords and DateTime objects in Windows Store, Windows Phone, and OData WebAPI projects where you should instead use DateTimeOffset. Every time the analyzer finds an improper date type, it squiggles the type with a warning and provides an automatic fix. Other project types are ignored.</Description>
+    <Description xml:space="preserve">Companion C# sample for the "Roslyn Succinctly" book by Alessandro Del Sole, published by Syncfusion Inc. This analyzer checks for usage of Date keywords and DateTime objects in Windows Store, Windows Phone, and OData WebAPI projects where you should instead use DateTimeOffset. Every time the analyzer finds an improper date type, it squiggles the type with a warning and provides an automatic fix. Other project types are ignored.Companion C# sample for the "Roslyn Succinctly" book by Alessandro Del Sole, published by Syncfusion Inc. This analyzer checks for usage of Date keywords and DateTime objects in Windows Store, Windows Phone, and OData WebAPI projects where you should instead use DateTimeOffset. Every time the analyzer finds an improper date type, it squiggles the type with a warning and provides an automatic fix. Other project types are ignored.</Description>
     <License>MIT_License.txt</License>
   </Metadata>
   <Installation>
