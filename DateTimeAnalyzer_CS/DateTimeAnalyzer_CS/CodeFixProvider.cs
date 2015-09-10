@@ -33,42 +33,60 @@ namespace DateTimeAnalyzer_CS
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
+            // Get the root syntax node for the current document
+            var root = await context.Document.
+                GetSyntaxRootAsync(context.CancellationToken).
+                ConfigureAwait(false);
 
-            // TODO: Replace the following code with your own analysis, generating a CodeAction for each fix to suggest
+            // Get a reference to the diagnostic to fix
             var diagnostic = context.Diagnostics.First();
+            // Get the location in the code editor for the diagnostic
             var diagnosticSpan = diagnostic.Location.SourceSpan;
 
+            // Find the syntax node on the span 
+            // where there is a squiggle
             var node = root.FindNode(context.Span);
 
+            // If the syntax node is not an IdentifierName
+            // return
             if (node is IdentifierNameSyntax == false)
             {
                 return;
             }
 
+            // Register a code action that invokes the fix
+            // on the current document
             context.RegisterCodeFix(
             CodeAction.Create(title:title,
-                              createChangedDocument: c=> ReplaceDateTimeAsync(context.Document, node, c), 
+                              createChangedDocument: 
+                              c=> ReplaceDateTimeAsync(context.Document, 
+                              node, c), 
                               equivalenceKey:title), diagnostic);
         }
 
 
-        private async Task<Document> ReplaceDateTimeAsync(Document document, SyntaxNode node,
+        private async Task<Document> ReplaceDateTimeAsync(Document document, 
+                         SyntaxNode node,
                          CancellationToken cancellationToken)
         {
-            var semanticModel = await document.
-                                GetSemanticModelAsync(cancellationToken);
+            // Get the root syntax node for the current document
             var root = await document.GetSyntaxRootAsync();
 
+            // Convert the syntax node into the specialized kind
             var convertedNode = (IdentifierNameSyntax)node;
 
-            var newNode = convertedNode.WithIdentifier(SyntaxFactory.
+            // Create a new syntax node
+            var newNode = convertedNode?.WithIdentifier(SyntaxFactory.
                           ParseToken("DateTimeOffset")).
                           WithLeadingTrivia(node.GetLeadingTrivia()).
                           WithTrailingTrivia(node.GetTrailingTrivia());
 
+            // Create a new root syntax node for the current document
+            // replacing the syntax node that has diagnostic with
+            // a new syntax node
             var newRoot = root.ReplaceNode(node, newNode);
 
+            // Generate a new document
             var newDocument = document.WithSyntaxRoot(newRoot);
             return newDocument;
         }
