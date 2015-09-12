@@ -41,8 +41,19 @@ namespace DateTimeAnalyzer_CS
 
         public override void Initialize(AnalysisContext context)
         {
-            context.RegisterSyntaxNodeAction(AnalyzeDateTime, 
+            context.
+            RegisterCompilationStartAction((CompilationStartAnalysisContext ctx) =>
+            {
+                var requestedType = 
+                    ctx.Compilation.
+                    GetTypeByMetadataName("Windows.Storage.StorageFile");
+
+                if (requestedType == null)
+                    return;
+
+                ctx.RegisterSyntaxNodeAction(AnalyzeDateTime, 
                     SyntaxKind.IdentifierName);
+            });
         }
 
         private void AnalyzeDateTime(SyntaxNodeAnalysisContext context)

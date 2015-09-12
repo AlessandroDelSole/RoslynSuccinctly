@@ -37,19 +37,21 @@ Public Class DateTimeAnalyzer_VBAnalyzer
     End Property
 
     Public Overrides Sub Initialize(context As AnalysisContext)
-        context.RegisterSyntaxNodeAction(AddressOf AnalyzeDateTime,
-                                         SyntaxKind.PredefinedType)
-        context.RegisterSyntaxNodeAction(AddressOf AnalyzeDateTime,
-                                         SyntaxKind.IdentifierName)
+        context.RegisterCompilationStartAction(
+            Sub(ctx As CompilationStartAnalysisContext)
+                Dim requestedType =
+                    ctx.Compilation.
+                    GetTypeByMetadataName("Windows.Storage.StorageFile")
+                If requestedType Is Nothing Then Return
+
+                ctx.RegisterSyntaxNodeAction(AddressOf AnalyzeDateTime,
+                                             SyntaxKind.PredefinedType)
+                ctx.RegisterSyntaxNodeAction(AddressOf AnalyzeDateTime,
+                                             SyntaxKind.IdentifierName)
+            End Sub)
     End Sub
 
     Private Sub AnalyzeDateTime(context As SyntaxNodeAnalysisContext)
-        If context.SemanticModel.Compilation.GetTypeByMetadataName("Windows.Storage.StorageFile") Is Nothing Then
-            If context.SemanticModel.Compilation.GetTypeByMetadataName("Microsoft.OData.Core.ODataAction") Is Nothing Then
-                Return
-            End If
-        End If
-
         'Get the syntax node to analyze
         Dim root = context.Node
 
