@@ -14,7 +14,7 @@ namespace Workspaces_CS
     {
         static void Main(string[] args)
         {
-            string solutionPath = "C:\\temp\\ConsoleApplication2\\ConsoleApplication2.sln";
+            string solutionPath = "C:\\temp\\RoslynSolution\\RoslynSolution.sln";
 
             var ws = Microsoft.CodeAnalysis.
                 MSBuild.MSBuildWorkspace.
