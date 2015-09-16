@@ -23,7 +23,8 @@ namespace RoslynStandAlone_CS
 
         private static void GenerateCode()
         {
-            SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(@"
+            SyntaxTree syntaxTree = 
+                CSharpSyntaxTree.ParseText(@"
     using System;
     using System.IO;
 
@@ -47,18 +48,27 @@ namespace RoslynStandAlone_CS
         }
     }");
 
-            string outputAssemblyName = Path.GetRandomFileName();
-            MetadataReference[] referenceList = new MetadataReference[]
-            {
-    MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-    MetadataReference.CreateFromFile(typeof(File).Assembly.Location)
-            };
+            string outputAssemblyName = 
+                Path.GetRandomFileName();
 
-            CSharpCompilation compilation = CSharpCompilation.Create(
+            MetadataReference[] referenceList = 
+                new MetadataReference[]
+                {
+                    MetadataReference.
+                    CreateFromFile(typeof(object).
+                    Assembly.Location),
+                    MetadataReference.
+                    CreateFromFile(typeof(File).
+                    Assembly.Location)
+                };
+
+            CSharpCompilation compilation = 
+                CSharpCompilation.Create(
                 outputAssemblyName,
                 syntaxTrees: new[] { syntaxTree },
                 references: referenceList,
-                options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+                options: new CSharpCompilationOptions(
+                    OutputKind.DynamicallyLinkedLibrary));
 
             using (var ms = new MemoryStream())
             {
@@ -66,26 +76,41 @@ namespace RoslynStandAlone_CS
 
                 if (!result.Success)
                 {
-                    IEnumerable<Diagnostic> diagnostics = result.Diagnostics.Where(diagnostic =>
+                    IEnumerable<Diagnostic> diagnostics = 
+                        result.Diagnostics.Where(diagnostic =>
                         diagnostic.IsWarningAsError ||
-                        diagnostic.Severity == DiagnosticSeverity.Error);
+                        diagnostic.Severity == 
+                        DiagnosticSeverity.Error);
 
-                    foreach (Diagnostic diagnostic in diagnostics)
+                    foreach (Diagnostic diagnostic in 
+                        diagnostics)
                     {
-                        Console.Error.WriteLine("{0}: {1}", diagnostic.Id, diagnostic.GetMessage());
+                        Console.Error.
+                            WriteLine("{0}: {1}", 
+                            diagnostic.Id, 
+                            diagnostic.
+                            GetMessage());
                     }
                 }
                 else
                 {
-                    ms.Seek(0, SeekOrigin.Begin);
-                    Assembly inputAssembly = Assembly.Load(ms.ToArray());
-                    Type typeInstance = inputAssembly.GetType("RoslynSuccinctly.Helper");
-                    object obj = Activator.CreateInstance(typeInstance);
-                    typeInstance.InvokeMember("PrintTextFromFile",
-                        BindingFlags.Default | BindingFlags.InvokeMethod,
+                    ms.Seek(0, 
+                        SeekOrigin.Begin);
+                    Assembly inputAssembly = 
+                        Assembly.Load(ms.ToArray());
+                    Type typeInstance = 
+                        inputAssembly.
+                        GetType("RoslynSuccinctly.Helper");
+                    object obj = 
+                        Activator.CreateInstance(typeInstance);
+                    typeInstance.
+                        InvokeMember("PrintTextFromFile",
+                        BindingFlags.Default | 
+                        BindingFlags.InvokeMethod,
                         null,
                         obj,
-                        new object[] { "C:\\temp\\MIT_License.txt" });
+                        new object[] 
+                        { "C:\\temp\\MIT_License.txt" });
                 }
             }
         }

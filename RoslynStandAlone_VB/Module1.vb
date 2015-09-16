@@ -30,42 +30,66 @@ Namespace RoslynSuccinctly
     End Class
 End Namespace")
 
-        Dim outputAssemblyName As String = Path.GetRandomFileName()
-        Dim referenceList As MetadataReference() = New MetadataReference() _
-        {MetadataReference.CreateFromFile(GetType(Object).Assembly.Location),
-        MetadataReference.CreateFromFile(GetType(File).Assembly.Location)}
+        Dim outputAssemblyName As String =
+            Path.GetRandomFileName()
+        Dim referenceList As MetadataReference() =
+            New MetadataReference() _
+            {MetadataReference.
+            CreateFromFile(GetType(Object).
+            Assembly.Location),
+            MetadataReference.
+            CreateFromFile(GetType(File).
+            Assembly.Location)}
 
         Dim compilation As VisualBasicCompilation =
-            VisualBasicCompilation.Create(outputAssemblyName, syntaxTrees:=New SyntaxTree() {tree},
-                                          references:=referenceList,
-                                          options:=New VisualBasicCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+            VisualBasicCompilation.
+            Create(outputAssemblyName,
+                   syntaxTrees:=New SyntaxTree() {tree},
+                   references:=referenceList,
+                   options:=New VisualBasicCompilationOptions(
+                   OutputKind.DynamicallyLinkedLibrary))
 
 
         Using ms As New MemoryStream()
-            Dim result As EmitResult = compilation.Emit(ms)
+            Dim result As EmitResult =
+                compilation.Emit(ms)
 
             If Not result.Success Then
-                Dim diagnostics As IEnumerable(Of Diagnostic) = result.Diagnostics.Where(Function(diagnostic) _
+                Dim diagnostics As _
+                    IEnumerable(Of Diagnostic) =
+                    result.Diagnostics.Where(Function(diagnostic) _
                     diagnostic.IsWarningAsError _
-                    OrElse diagnostic.Severity = DiagnosticSeverity.[Error])
+                    OrElse diagnostic.Severity =
+                    DiagnosticSeverity.[Error])
 
-                For Each diagnostic As Diagnostic In diagnostics
+                For Each diagnostic As _
+                    Diagnostic In diagnostics
+
                     Console.Error.WriteLine("{0}: {1}",
-                                              diagnostic.Id, diagnostic.GetMessage())
+                                              diagnostic.Id,
+                                              diagnostic.GetMessage())
                 Next
             Else
                 ms.Seek(0, SeekOrigin.Begin)
-                Dim inputAssembly As Assembly = Assembly.Load(ms.ToArray())
+                Dim inputAssembly As Assembly =
+                    Assembly.Load(ms.ToArray())
 
-                Dim typeInstance As Type = inputAssembly.GetType("RoslynSuccinctly.Helper")
-                Dim obj As Object = Activator.CreateInstance(typeInstance)
-                typeInstance.InvokeMember("PrintTextFromFile",
-                                          BindingFlags.Default Or
-                                          BindingFlags.InvokeMethod,
-                                          Nothing, obj,
-                                          New Object() {"C:\Temp\MIT_License.txt"})
+                Dim typeInstance As Type =
+                    inputAssembly.
+                    GetType("RoslynSuccinctly.Helper")
+
+                Dim obj As Object =
+                    Activator.
+                    CreateInstance(typeInstance)
+
+                typeInstance.
+                    InvokeMember("PrintTextFromFile",
+                                 BindingFlags.Default Or
+                                 BindingFlags.InvokeMethod,
+                                 Nothing, obj,
+                                 New Object() _
+                                 {"C:\Temp\MIT_License.txt"})
             End If
         End Using
     End Sub
-
 End Module
