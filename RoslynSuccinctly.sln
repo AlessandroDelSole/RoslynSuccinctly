@@ -23,9 +23,13 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PublicFieldRefactoring_VB",
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PublicFieldRefactoring_VB.Vsix", "PublicFieldRefactoring_VB\PublicFieldRefactoring_VB.Vsix\PublicFieldRefactoring_VB.Vsix.vbproj", "{8FA1F701-F360-412F-A7E1-FD875D77A2E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoslynStandAlone_CS", "RoslynStandAlone_CS\RoslynStandAlone_CS.csproj", "{7DC9E1B4-462C-434A-9904-2DD22164724C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGeneration_Emit_CS", "RoslynStandAlone_CS\CodeGeneration_Emit_CS.csproj", "{7DC9E1B4-462C-434A-9904-2DD22164724C}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RoslynStandAlone_VB", "RoslynStandAlone_VB\RoslynStandAlone_VB.vbproj", "{003E1842-BD21-4550-A643-50E197E6249B}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CodeGeneration_Emit_VB", "RoslynStandAlone_VB\CodeGeneration_Emit_VB.vbproj", "{003E1842-BD21-4550-A643-50E197E6249B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workspaces_CS", "Workspaces_CS\Workspaces_CS.csproj", "{D8F3A1C8-AC70-4027-8DA9-DA3B9B4D2A97}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Workspaces_VB", "Workspaces_VB\Workspaces_VB.vbproj", "{193ACAEC-3E0C-4612-B2E0-64EBD4722157}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +131,18 @@ Global
 		{003E1842-BD21-4550-A643-50E197E6249B}.Release|Any CPU.ActiveCfg = Release|x86
 		{003E1842-BD21-4550-A643-50E197E6249B}.Release|x86.ActiveCfg = Release|x86
 		{003E1842-BD21-4550-A643-50E197E6249B}.Release|x86.Build.0 = Release|x86
+		{D8F3A1C8-AC70-4027-8DA9-DA3B9B4D2A97}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D8F3A1C8-AC70-4027-8DA9-DA3B9B4D2A97}.Debug|x86.ActiveCfg = Debug|x86
+		{D8F3A1C8-AC70-4027-8DA9-DA3B9B4D2A97}.Debug|x86.Build.0 = Debug|x86
+		{D8F3A1C8-AC70-4027-8DA9-DA3B9B4D2A97}.Release|Any CPU.ActiveCfg = Release|x86
+		{D8F3A1C8-AC70-4027-8DA9-DA3B9B4D2A97}.Release|x86.ActiveCfg = Release|x86
+		{D8F3A1C8-AC70-4027-8DA9-DA3B9B4D2A97}.Release|x86.Build.0 = Release|x86
+		{193ACAEC-3E0C-4612-B2E0-64EBD4722157}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{193ACAEC-3E0C-4612-B2E0-64EBD4722157}.Debug|x86.ActiveCfg = Debug|x86
+		{193ACAEC-3E0C-4612-B2E0-64EBD4722157}.Debug|x86.Build.0 = Debug|x86
+		{193ACAEC-3E0C-4612-B2E0-64EBD4722157}.Release|Any CPU.ActiveCfg = Release|x86
+		{193ACAEC-3E0C-4612-B2E0-64EBD4722157}.Release|x86.ActiveCfg = Release|x86
+		{193ACAEC-3E0C-4612-B2E0-64EBD4722157}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
