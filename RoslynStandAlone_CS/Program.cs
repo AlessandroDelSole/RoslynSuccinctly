@@ -21,6 +21,8 @@ namespace RoslynStandAlone_CS
             Console.ReadLine();
         }
 
+        //Generate a syntax tree
+        //from source text
         private static void GenerateCode()
         {
             SyntaxTree syntaxTree = 
@@ -47,10 +49,13 @@ namespace RoslynStandAlone_CS
             }
         }
     }");
-
+            //Get a random file name for
+            //the output assembly
             string outputAssemblyName = 
                 Path.GetRandomFileName();
 
+            //Add a list of references from assemblies
+            //By a type name, get the assembly ref
             MetadataReference[] referenceList = 
                 new MetadataReference[]
                 {
@@ -62,6 +67,9 @@ namespace RoslynStandAlone_CS
                     Assembly.Location)
                 };
 
+            //Single invocation to the compiler
+            //Create an assembly with the specified
+            //syntax trees, references, and options
             CSharpCompilation compilation = 
                 CSharpCompilation.Create(
                 outputAssemblyName,
@@ -70,18 +78,24 @@ namespace RoslynStandAlone_CS
                 options: new CSharpCompilationOptions(
                     OutputKind.DynamicallyLinkedLibrary));
 
+            //Create a stream
             using (var ms = new MemoryStream())
             {
+                //Emit the IL code into the stream
                 EmitResult result = compilation.Emit(ms);
 
+                //If emit fails,
                 if (!result.Success)
                 {
+                    //Query the list of diagnostics
+                    //in the source code
                     IEnumerable<Diagnostic> diagnostics = 
                         result.Diagnostics.Where(diagnostic =>
                         diagnostic.IsWarningAsError ||
                         diagnostic.Severity == 
                         DiagnosticSeverity.Error);
 
+                    //Write id and message for each diagnostic
                     foreach (Diagnostic diagnostic in 
                         diagnostics)
                     {
@@ -94,15 +108,26 @@ namespace RoslynStandAlone_CS
                 }
                 else
                 {
+                    //If emit succeeds, move to
+                    //the beginning of the assembly
                     ms.Seek(0, 
                         SeekOrigin.Begin);
+                    //Load the generated assembly
+                    //into memory
                     Assembly inputAssembly = 
                         Assembly.Load(ms.ToArray());
+
+                    //Get a reference to the type
+                    //defined in the syntax tree
                     Type typeInstance = 
                         inputAssembly.
                         GetType("RoslynSuccinctly.Helper");
+
+                    //Create an instance of the type
                     object obj = 
                         Activator.CreateInstance(typeInstance);
+
+                    //Invoke the method
                     typeInstance.
                         InvokeMember("PrintTextFromFile",
                         BindingFlags.Default | 
