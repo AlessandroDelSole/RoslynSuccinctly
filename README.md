@@ -1,4 +1,6 @@
 # Roslyn Succinctly
-![Roslyn Succinctly](http://www.visual-basic.it/Portals/0/Contents/thumb/roslyn_succinctly_thumb.jpg)
 
-This repository contains the full source code for the upcoming Roslyn Succinctly book by Alessandro Del Sole, published by Syncfusion.
+This repository contains the full source code for the new [Roslyn Succinctly](https://www.syncfusion.com/resources/techportal/details/ebooks/roslyn) book by Alessandro Del Sole, published by Syncfusion.
+
+![Roslyn Succinctly](https://github.com/AlessandroDelSole/RoslynSuccinctly/blob/master/cover.png)
+
